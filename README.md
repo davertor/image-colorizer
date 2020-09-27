@@ -1,2 +1,4 @@
-# Deoldify-image-colorizer
-Google colab for coloryzing images by means of DeOldify trained network
+# Deoldify-image-coloring
+Google colab notebook for coloring black and white images by means of the use of DeOldify trained network.
+
+For coloring images, go to Google colab and 
