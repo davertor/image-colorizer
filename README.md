@@ -3,7 +3,7 @@
 [![Twitter][twitter-shield]][twitter-url]
 
 # Deoldify-image-coloring
-[![Product Name Screen Shot][product-screenshot]]()
+![Coloring result][product-screenshot]
 
 Google colab notebook for coloring black and white images by means of the use of DeOldify's trained network.
 
