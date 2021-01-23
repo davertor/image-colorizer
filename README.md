@@ -17,6 +17,9 @@ This tool was developed by Jason Antic, who trained an AI based on a GAN archite
 
 While black and white photos are a combination of grayscale pixels that can take a value between 0-255; in color photos each pixel is a combination of three values, red, green and blue where each of them can take a value from 0 to 255. Therefore, the NoGan network has to achieve triple the information it has on the photo to get a color photo.The result is that the network has learned to color black and white photos; filling in the missing information.
 
+## Instructions
+For working with this notebook, clone repo and execute it in your favourite Notebook environment, or open Google's colab and introduce the following link: https://github.com/davertor/Deoldify-image-coloring
+
 ## Acknowledgements
 * [Deoldify](https://deoldify.ai/)
 
