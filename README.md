@@ -21,20 +21,26 @@ This tool was developed by Jason Antic, who trained an AI based on a GAN archite
 
 While black and white photos are a combination of grayscale pixels that can take a value between 0-255; in color photos each pixel is a combination of three values, red, green and blue where each of them can take a value from 0 to 255. Therefore, the NoGan network has to achieve triple the information it has on the photo to get a color photo.The result is that the network has learned to color black and white photos; filling in the missing information.
 
+## Contact
+* Author - Daniel Verdú Torres
+* Linkedin - [Linkedin](https://linkedin.com/daniel-verdu-torres) 
+* Github - [@davertor](https://github.com/davertor)
+
 ## References
 * [Deoldify](https://deoldify.ai/)
 
-## Contact
-* [@davertor](https://github.com/davertor) 
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [product-screenshot]: images/di_stefano_merged.png
 [linkedin-url]: https://linkedin.com/daniel-verdu-torres
+[github-url]: https://github.com/davertor
 
 [made-love-shield]: https://img.shields.io/badge/-Made%20with%20love%20❤️-orange.svg?style=for-the-badge
 [license-shield]: https://img.shields.io/badge/License-GNU-brightgreen.svg?style=for-the-badge
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-darkblue.svg?style=for-the-badge&logo=linkedin
+[github-shield]: https://img.shields.io/badge/-Github-black.svg?style=for-the-badge&logo=github
 [twitter-shield]: https://img.shields.io/badge/-Twitter-blue.svg?style=for-the-badge&logo=twitter
 
 
