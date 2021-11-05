@@ -1,25 +1,25 @@
 ![Made-love][made-love-shield]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-# Deoldify-image-coloring
+# Image colorizer
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/your_user/your_space)
 [![Open In Collab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1OpIIpDUA-M9QD-PExdYzXY3FJ8qG3l9i?usp=sharing)
 
 ![Coloring result][product-screenshot]
 
-Google colab notebook for coloring black and white images by means of the use of DeOldify's trained network.
+Streamlit app and google colab notebook have been developed for coloring black and white images by means of the use of DeOldify's trained networks. You can check original implementation at the following [Github](https://github.com/jantic/DeOldify)
 
-For coloring images, go to Google colab and introduce the following link: https://github.com/davertor/Deoldify-image-coloring
+For coloring images, you have two options
+* Click on Hugging face spaces button above of the image and upload your images
+* Click on Google colab button and execute the cells
 
-## Description
+## About the tool
 
 DeOldify is a tool that colors digitalized black and white photos. At this moment, DeOldify represents the state of the art in image coloring.
 
 This tool was developed by Jason Antic, who trained an AI based on a GAN architecture, called NoGan, with a collection of color photos and their corresponding black and white version. 
 
 While black and white photos are a combination of grayscale pixels that can take a value between 0-255; in color photos each pixel is a combination of three values, red, green and blue where each of them can take a value from 0 to 255. Therefore, the NoGan network has to achieve triple the information it has on the photo to get a color photo.The result is that the network has learned to color black and white photos; filling in the missing information.
-
-## Instructions
-For working with this notebook, clone repo and execute it in your favourite Notebook environment, or open Google's colab and introduce the following link: https://github.com/davertor/Deoldify-image-coloring
 
 ## References
 * [Deoldify](https://deoldify.ai/)
