@@ -1,13 +1,13 @@
 # Import general purpose libraries
-import os, sys, re
+import os, re, time
 import streamlit as st
 import PIL
-from PIL import Image
 import cv2
 import numpy as np
 import uuid
 from zipfile import ZipFile, ZIP_DEFLATED
 from io import BytesIO
+from random import randint
 
 # Import util functions from deoldify
 # NOTE:  This must be the first call in order to work properly!
@@ -22,9 +22,16 @@ from app_utils import get_model_bin
 
 
 
-####### INPUT PARAMS ###########
-model_folder = 'models/'
-max_img_size = 800
+SESSION_STATE_VARIABLES = [
+    'model_folder', 'max_img_size', 'uploaded_file_key'
+]
+for i in SESSION_STATE_VARIABLES:
+    if i not in st.session_state:
+        st.session_state[i] = None
+        
+#### SET INPUT PARAMS ###########
+if not st.session_state.model_folder: st.session_state.model_folder = 'models/'
+if not st.session_state.max_img_size: st.session_state.max_img_size = 800
 ################################
 
 @st.cache(allow_output_mutation=True, show_spinner=False)
@@ -100,7 +107,6 @@ def get_button_html_code(data_str, filename, filetype, button_id, button_txt='Do
     return href
 
 def display_single_image(uploaded_file, img_size=800):
-    print('Type: ', type(uploaded_file))
     st_title_message.markdown("**Processing your image, please wait** ⌛")
     img_name = uploaded_file.name
 
@@ -124,11 +130,15 @@ def display_single_image(uploaded_file, img_size=800):
     st_title_message.markdown("**To begin, please upload an image** 👇")
 
 def process_multiple_images(uploaded_files, img_size=800):
+
     num_imgs = len(uploaded_files)
 
     output_images_list = []
     img_names_list = []
     idx = 1
+
+    st_progress_bar.progress(0)
+
     for idx, uploaded_file in enumerate(uploaded_files, start=1):
         st_title_message.markdown("**Processing image {}/{}. Please wait** ⌛".format(idx,
                                                                                     num_imgs))
@@ -147,6 +157,9 @@ def process_multiple_images(uploaded_files, img_size=800):
 
         output_images_list.append(output_pil_img)
         img_names_list.append(img_name.split('.')[0])
+
+        percent = int((idx / num_imgs)*100)
+        st_progress_bar.progress(percent)
 
     # Zip output files
     zip_path = 'processed_images.zip'
@@ -200,6 +213,7 @@ unsafe_allow_html=True)
 st.title("Black and white colorizer")
 st.markdown("This app puts color into your black and white pictures")
 st_title_message = st.empty()
+st_progress_bar = st.empty()
 st_file_uploader = st.empty()
 st_input_img = st.empty()
 st_output_img = st.empty()
@@ -218,7 +232,7 @@ st_color_option = st.sidebar.selectbox('Select colorizer mode',
 # Load models
 try:
     print('before loading the model')
-    colorizer = load_model(model_folder, st_color_option)
+    colorizer = load_model(st.session_state.model_folder, st_color_option)
     print('after loading the model')
 
 except Exception as e: 
@@ -229,15 +243,26 @@ except Exception as e:
 
 if colorizer is not None:
     st_title_message.markdown("**To begin, please upload an image** 👇")
-
+    
     #Choose your own image
     uploaded_files = st_file_uploader.file_uploader("Upload a black and white photo", 
-                                                    type=['png', 'jpg', 'jpeg'],
-                                                    accept_multiple_files=True)
-
-    if len(uploaded_files) == 1:
-        display_single_image(uploaded_files[0], max_img_size)
-    elif len(uploaded_files) > 1:
-        process_multiple_images(uploaded_files, max_img_size)
+                                            type=['png', 'jpg', 'jpeg'],
+                                            accept_multiple_files=True,
+                                            key=f"{st.session_state['uploaded_file_key']}"
+                                            )
+    
+    if uploaded_files:
+            
+        # # Get only newest elements
+        # new_files = uploaded_files[st.session_state.img_counter:]
+        # st.session_state.img_counter = len(uploaded_files) - st.session_state.img_counter
+        
+        if len(uploaded_files) == 1:
+            display_single_image(uploaded_files[0], st.session_state.max_img_size)
+        elif len(uploaded_files) > 1:
+            process_multiple_images(uploaded_files, st.session_state.max_img_size)
+        
+        st.session_state['uploaded_file_key'] = str(randint(1000, 100000000))  # remove the uploaded file from the UI
+        
 
 
