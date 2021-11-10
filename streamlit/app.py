@@ -23,16 +23,18 @@ from app_utils import get_model_bin
 
 
 SESSION_STATE_VARIABLES = [
-    'model_folder', 'max_img_size', 'uploaded_file_key'
+    'model_folder','max_img_size','uploaded_file_key'
 ]
 for i in SESSION_STATE_VARIABLES:
     if i not in st.session_state:
         st.session_state[i] = None
-        
+                
 #### SET INPUT PARAMS ###########
 if not st.session_state.model_folder: st.session_state.model_folder = 'models/'
 if not st.session_state.max_img_size: st.session_state.max_img_size = 800
 ################################
+
+
 
 @st.cache(allow_output_mutation=True, show_spinner=False)
 def load_model(model_dir, option):
@@ -243,19 +245,15 @@ except Exception as e:
 
 if colorizer is not None:
     st_title_message.markdown("**To begin, please upload an image** 👇")
-    
+
     #Choose your own image
     uploaded_files = st_file_uploader.file_uploader("Upload a black and white photo", 
                                             type=['png', 'jpg', 'jpeg'],
                                             accept_multiple_files=True,
                                             key=f"{st.session_state['uploaded_file_key']}"
                                             )
-    
+
     if uploaded_files:
-            
-        # # Get only newest elements
-        # new_files = uploaded_files[st.session_state.img_counter:]
-        # st.session_state.img_counter = len(uploaded_files) - st.session_state.img_counter
         
         if len(uploaded_files) == 1:
             display_single_image(uploaded_files[0], st.session_state.max_img_size)
@@ -263,6 +261,6 @@ if colorizer is not None:
             process_multiple_images(uploaded_files, st.session_state.max_img_size)
         
         st.session_state['uploaded_file_key'] = str(randint(1000, 100000000))  # remove the uploaded file from the UI
-        
+        st.experimental_rerun()  # Force rerun to reload the file_uploader object with new key
 
 
